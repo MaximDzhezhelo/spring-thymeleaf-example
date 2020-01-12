@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/Layout}">
+<head>
+    <title>[[${title}]]</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <p>Title of tutorial: [[${title}]]</p>
+    <p>Description: [(${description})]</p>
+    <p>
+        <span th:text="'Today is: ' + ${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}" th:remove="tag"></span>
+    </p>
+</section>
+</body>
+</html>
