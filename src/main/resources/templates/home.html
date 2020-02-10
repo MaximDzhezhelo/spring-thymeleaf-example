@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>dffv</title>
+    <title>title</title>
+    <link rel="stylesheet" th:href="@{assets/css/simple.css}">
 </head>
 <body>
 <div>
     <p>Title of tutorial: [[${title}]]</p>
     <p>Description: [(${description})]</p>
+
+    <img th:src="@{assets/img/java60.png}" sizes="16x16" alt="love">
 </div>
 </body>
 </html>

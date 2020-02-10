@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>404</title>
+
+    <link rel="stylesheet" th:href="@{assets/css/simple.css}">
 </head>
 <body>
 <div >
-    <h1>404</h1>
-    <h2>We are sorry but the page you are looking for was not
-        found..</h2>
+    <p>404</p>
+    <p>We are sorry but the page you are looking for was not
+        found..</p>
+
+    <img th:src="@{assets/img/notFound.png}" sizes="16x16" alt="love">
 </div>
 </body>
 </html>
