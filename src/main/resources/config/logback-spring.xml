@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+
+    <property name="DEV_HOME" value="log"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{0} %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="basicAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/server/server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${DEV_HOME}/server/server-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxHistory>45</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{0} %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="accessAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/access/access.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${DEV_HOME}/access/access-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%-4level]%msg%n%xException</pattern>
+        </encoder>
+    </appender>
+
+    <!--***************************************************************************************************************-->
+
+    <appender name="ASYNC_ACCESS" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="accessAppender"/>
+    </appender>
+
+    <!--***************************************************************************************************************-->
+
+    <logger name="access" level="INFO" additivity="false">
+        <appender-ref ref="ASYNC_ACCESS"/>
+    </logger>
+
+    <logger name="ch.qos.logback" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.web" level="INFO"/>
+    <logger name="com.sun.xml" level="INFO"/>
+    <logger name="org.apache" level="INFO"/>
+    <logger name="javax" level="INFO"/>
+    <logger name="sun.net.www" level="INFO"/>
+    <logger name="com.sun.metro.assembler" level="INFO"/>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="basicAppender"/>
+    </root>
+    
+</configuration>

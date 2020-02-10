@@ -12,7 +12,7 @@ public class HomeController {
     public String getExampleHTML(Model model) {
         model.addAttribute("title", "Win");
         model.addAttribute("description", "<strong>Thymeleaf</strong> tutorial");
-        return "Home.html";
+        return "home.html";
     }
 
 }
